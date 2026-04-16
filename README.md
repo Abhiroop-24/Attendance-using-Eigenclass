@@ -1,5 +1,8 @@
 # EIGENCLASS Quick README
 
+## Made by:
+Abhishek Kumar Singh (PES2UG24CS026)
+
 ## What this project is
 
 This is an automated attendance system based on face recognition using linear algebra and PCA (Eigenfaces).
