@@ -1,8 +1,8 @@
 # EIGENCLASS Quick README
 
 ## Made by:
-Abhishek Kumar Singh (PES2UG24CS026).
-Abhiroop (PES2UG24CS024).
+- Abhishek Kumar Singh - (PES2UG24CS026).
+- Abhiroop - (PES2UG24CS024).
 
 ## What this project is
 
