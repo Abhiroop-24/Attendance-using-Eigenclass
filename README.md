@@ -1,18 +1,36 @@
-# EIGENCLASS: Automated Attendance with Linear Algebra
+# EIGENCLASS Quick README
 
-This project implements the exact linear algebra flow from your prompt:
+## What this project is
 
-1. Convert grayscale face images into vectors and build a data matrix.
-2. Compute the mean face.
-3. Center the data (subtract mean face).
-4. Build covariance matrix.
-5. Compute eigenvalues/eigenvectors (Eigenfaces).
-6. Reduce dimensionality using PCA (top `k` components).
-7. Project faces into face space.
-8. Recognize by Euclidean nearest neighbor distance.
-9. Mark attendance using a threshold decision.
+This is an automated attendance system based on face recognition using linear algebra and PCA (Eigenfaces).
+It takes student face images, learns a compact face space, and then identifies a new face to mark attendance.
 
-## Project Structure
+## What was built
+
+- Core script: `eigenclass_attendance.py`
+- Dependencies list: `requirements.txt`
+- Project brief/context: `context.txt`
+
+The script supports:
+
+- Training a model from folder-based student images
+- Recognizing a new image as known student or UNKNOWN
+- Writing attendance to CSV with timestamp
+- Avoiding duplicate PRESENT entries for the same student on the same date
+
+## Linear algebra pipeline used
+
+1. Convert images to grayscale vectors and form a matrix.
+2. Compute mean face.
+3. Center all vectors by subtracting mean.
+4. Compute covariance matrix.
+5. Perform eigen decomposition to get Eigenfaces.
+6. Keep top-k components (PCA reduction).
+7. Project training and test faces into reduced subspace.
+8. Match with Euclidean nearest neighbor.
+9. Apply threshold decision boundary for known vs UNKNOWN.
+
+## Expected folder layout
 
 ```
 la_proj/
@@ -21,10 +39,10 @@ la_proj/
   requirements.txt
   README.md
   dataset/
-    Student_1/
+    Alice/
       img1.jpg
       img2.jpg
-    Student_2/
+    Bob/
       img1.jpg
   models/
   attendance/
@@ -33,32 +51,31 @@ la_proj/
 ## Setup
 
 ```bash
-python -m venv .venv
-source .venv/Scripts/activate  # Windows Git Bash
-pip install -r requirements.txt
+py -3 -m pip install -r requirements.txt
 ```
 
-## Train
+## Train model
 
 ```bash
-python eigenclass_attendance.py train --dataset dataset --model models/eigenclass_model.npz --width 64 --height 64 -k 50
+py -3 eigenclass_attendance.py train --dataset dataset --model models/eigenclass_model.npz --width 64 --height 64 -k 50
 ```
 
-## Recognize + Mark Attendance
+## Recognize and mark attendance
 
 ```bash
-python eigenclass_attendance.py recognize --image test_face.jpg --model models/eigenclass_model.npz --mark --attendance attendance/attendance.csv
+py -3 eigenclass_attendance.py recognize --image test_face.jpg --model models/eigenclass_model.npz --mark --attendance attendance/attendance.csv
 ```
 
-## Output
+## Attendance CSV fields
 
-The attendance file is a CSV with:
+- date
+- time
+- student
+- status (PRESENT or UNKNOWN)
+- distance
+- image
 
-- `date`
-- `time`
-- `student`
-- `status` (`PRESENT` or `UNKNOWN`)
-- `distance`
-- `image`
+## Notes
 
-Duplicate `PRESENT` entries for the same student on the same day are prevented.
+- If `dataset` does not exist, training will fail.
+- Recognition quality depends heavily on real face data quality and threshold tuning.
