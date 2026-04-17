@@ -4,6 +4,7 @@
 - Abhishek Kumar Singh - (PES2UG24CS026).
 - Abhiroop - (PES2UG24CS024).
 - Aayaan - (PES2UG24CS017).
+- Adarsh - (PES2UG24CS028)
 
 ## What this project is
 
