@@ -166,15 +166,15 @@ def load_model(path: Path) -> ModelArtifacts:
     )
 
 
-def recognize_face(model: ModelArtifacts, image_path: Path) -> tuple[str, float, bool]:
+def recognize_face(model: ModelArtifacts, image_path: Path) -> tuple[str, float, bool]: #this converts an image to vector and projects into face space
     x = _load_grayscale_vector(image_path, model.image_shape)
     w = (x - model.mean_face) @ model.face_space
     distances = np.linalg.norm(model.train_weights - w, axis=1)
     i = int(np.argmin(distances))
-    best_distance = float(distances[i])
+    best_distance = float(distances[i]) 
     predicted_label = str(model.labels[i])
     recognized = best_distance <= model.threshold
-    return (predicted_label if recognized else "UNKNOWN", best_distance, recognized)
+    return (predicted_label if recognized else "UNKNOWN", best_distance, recognized)#picks teh closest match and checks if its recongnized or not
 
 
 def mark_attendance(attendance_csv: Path, student: str, distance: float, image_path: Path, recognized: bool) -> None:
