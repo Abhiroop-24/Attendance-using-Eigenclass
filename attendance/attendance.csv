@@ -1,3 +1,3 @@
-date,time,student,status,distance,image
-2026-04-17,11:00:09,Bob,PRESENT,3.716162,sample_inputs\alice_test.jpg
-2026-04-17,11:00:10,Charlie,PRESENT,3.165745,sample_inputs\unknown_test.jpg
+date,time,srn,name,status,distance,source
+2026-04-17,11:00:09,BOB,Bob,PRESENT,3.716162,sample_inputs/alice_test.jpg
+2026-04-17,11:00:10,CHARLIE,Charlie,PRESENT,3.165745,sample_inputs/unknown_test.jpg
