@@ -21,7 +21,7 @@ import subprocess
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable
 
 import numpy as np
 from PIL import Image
@@ -149,7 +149,7 @@ def _require_cv2() -> None:
         )
 
 
-def _get_face_detector() -> cv2.CascadeClassifier:
+def _get_face_detector() -> object:
     _require_cv2()
     cascade_path = cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
     detector = cv2.CascadeClassifier(cascade_path)
@@ -693,7 +693,7 @@ def _extract_simple_arithmetic_expression(question: str) -> str | None:
 def _safe_eval_expression(expression: str) -> float:
     expression = expression.replace("^", "**")
 
-    binary_ops: dict[type[ast.AST], operator] = {
+    binary_ops: dict[type[ast.AST], Callable[[float, float], float]] = {
         ast.Add: operator.add,
         ast.Sub: operator.sub,
         ast.Mult: operator.mul,
@@ -701,7 +701,7 @@ def _safe_eval_expression(expression: str) -> float:
         ast.Pow: operator.pow,
         ast.Mod: operator.mod,
     }
-    unary_ops: dict[type[ast.AST], operator] = {
+    unary_ops: dict[type[ast.AST], Callable[[float], float]] = {
         ast.UAdd: operator.pos,
         ast.USub: operator.neg,
     }
