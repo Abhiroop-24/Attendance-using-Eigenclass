@@ -1,3 +1,9 @@
 date,time,srn,name,status,distance,source
 2026-04-17,11:00:09,BOB,Bob,PRESENT,3.716162,sample_inputs/alice_test.jpg
 2026-04-17,11:00:10,CHARLIE,Charlie,PRESENT,3.165745,sample_inputs/unknown_test.jpg
+2026-04-17,12:09:50,CS024,Abhiroop,PRESENT,4.218481,camera:0
+2026-04-17,12:25:49,CS028,Adarsh,PRESENT,4.177365,camera:0
+2026-04-17,12:48:03,CS102,Student Two,PRESENT,4.843843,camera:0
+2026-04-17,12:48:14,CS101,Student One,PRESENT,6.128346,camera:0
+2026-04-17,13:10:35,CS103,Student three,PRESENT,4.393453,camera:0
+2026-04-17,13:45:36,CS001,Teacher,PRESENT,6.560967,camera:0

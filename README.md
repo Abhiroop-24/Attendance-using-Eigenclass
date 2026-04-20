@@ -11,9 +11,9 @@
 This upgraded version keeps the same linear algebra Eigenfaces pipeline, and adds a full laptop-camera attendance flow:
 
 - Webcam registration with automatic face detection
-- Capture exactly 5 images per student by default
+- Capture 5-8 quality face images per student
 - Store student Name + SRN (for example: CS024)
-- Retrain model after registration (optional one-shot)
+- Auto-retrain model after production enrollment
 - Live webcam attendance mode with real-time detection and marking
 - Duplicate protection: one PRESENT per SRN per day
 - Ollama math assistant mode using `qwen2.5:3b`
@@ -64,14 +64,14 @@ python3 -m venv .venv
 
 ## Final setup flow (recommended)
 
-1) Register student from laptop camera (captures 5 photos and retrains immediately):
+1) Enroll student from laptop camera (SRN-first, captures 5-8 photos, retrains automatically):
 
 ```bash
-python3 eigenclass_attendance.py register \
+python3 eigenclass_attendance.py enroll \
   --name "Abhiroop" \
   --srn CS024 \
-  --samples 5 \
-  --train-after
+  --min-samples 5 \
+  --max-samples 8
 ```
 
 2) Start live attendance mode:
@@ -102,10 +102,16 @@ Alternative training script:
 python3 train_ai.py --dataset dataset --model models/eigenclass_model.npz --width 64 --height 64 -k 50
 ```
 
-Register (webcam + face detection + Name + SRN):
+Production enroll (SRN-first + webcam + 5-8 captures + auto-train):
 
 ```bash
-python3 eigenclass_attendance.py register --name "Student Name" --srn CS024 --samples 5
+python3 eigenclass_attendance.py enroll --srn CS024 --name "Student Name" --min-samples 5 --max-samples 8
+```
+
+Legacy register (fixed number of captures; optional retrain):
+
+```bash
+python3 eigenclass_attendance.py register --name "Student Name" --srn CS024 --samples 5 --train-after
 ```
 
 Recognize one image:
